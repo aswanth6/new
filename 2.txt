@@ -1,1 +1,9 @@
-hi 2
+🚀 Over the past few days, I explored the end-to-end setup of Amazon EKS with Fargate, IAM integration, and secure workload deployment using OIDC and ALB. I started by creating a serverless EKS cluster using eksctl with Fargate enabled, which eliminated the need to manage EC2 nodes directly. Since Fargate handles the compute layer, AWS automatically provisions resources within a VPC, usually using private subnets.
+
+To enable secure communication between Kubernetes and AWS IAM, I associated an OIDC provider with the EKS cluster. This is a crucial step that allows IAM roles to be assumed by Kubernetes service accounts. I then downloaded and customized the AWS Load Balancer Controller IAM policy and created it using the AWS CLI. Next, I created a Kubernetes service account in the kube-system namespace and linked it to the IAM role using IRSA (IAM Roles for Service Accounts), enabling the controller to create and manage load balancers securely.
+
+To ensure that my application runs on Fargate, I defined a Fargate profile for the game-2048 namespace. With this in place, I deployed the 2048 game sample using a public container image, which included a Kubernetes Deployment, Service, and Ingress configuration. I then set up an internet-facing ALB via Kubernetes Ingress using appropriate annotations. Thanks to the ALB Ingress Controller, a public Application Load Balancer was automatically created and wired to route traffic to my Fargate pods running in a private subnet.
+
+💡 This hands-on journey highlighted how powerful and streamlined AWS EKS can be when combined with OIDC, IRSA, and Fargate. It provides a clean way to run secure, scalable workloads without managing infrastructure, while still enabling fine-grained access to AWS services from within Kubernetes.
+
+#AWS #EKS #Kubernetes #DevOps #Fargate #OIDC #IRSA #CloudComputing #InfrastructureAsCode
